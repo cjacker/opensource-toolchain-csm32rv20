@@ -1,6 +1,6 @@
 # Opensource toolchain tutorial for CSM32RV20
 
-**Actually, there is no complete opensource toolchain for CSM32RV20, they forked OpenOCD to add CJ-Link support and csm flash driver support, renamed it to  "cjlink" but close sourced. This violated GPL license that OpenOCD followed.**
+**Actually, there is no complete opensource toolchain for CSM32RV20, they forked OpenOCD to add CJ-Link and csm flash driver support, renamed it to  "cjlink" but closed sources. This violated GPL license that OpenOCD followed.**
 
 
 CSM32RV20 is a low-power MCU chip based on RISC-V core, made by Nanjing zhongke microelectronics .
