@@ -112,7 +112,7 @@ cp Flashloader.elf $HOME/.config/SEGGER/JLinkDevices/CSM/csm32rv20
 
 If all good, the devices should able to be selected by vairous JLink utilities. I write a 'import-csm-jflash' script in firmware library repo to do this automatically.
 
-<img src="misc/selectdevice.png" width="60%" />
+<img src="misc/selectdevice.png" width="40%" />
 
 ## Prepare csmflash.JLinkScript
 
@@ -161,7 +161,7 @@ Wire up JLink adapter and Official EVB cJTAG interface as:
 
 You can use JFlash (not JFlashLite) to program csm32rv20, choose the 'cJTAG' interface, set up the device and select 'csmflash.JLinkScript':
 
-<img src="misc/jflash.png" width="60%" />
+<img src="misc/jflash.png" width="40%" />
 
 Here I use the command line:
 ```
@@ -219,3 +219,88 @@ Script processing completed.
 
 After programmed, the LED on official EVB should blink.
 
+
+# Debugging
+
+If we can use JLink to program, then we can always use it for debugging.
+
+Run `JLinkGDBServerCLExe` as:
+```
+JLinkGDBServerCLExe -select USB -device csm32rv20 -endian little  -timeout 4000 -novd -if cJTAG -s -speed 4000 -ir -LocalhostOnly  -JLinkDevicesXMLPath `pwd`/Devices/ -jlinkscriptfile `pwd`/Devices/csmflash.JLinkScript
+```
+
+The output looks like:
+```
+Checking target voltage...
+Target voltage: 3.27 V
+Listening on TCP/IP port 2331
+Connecting to target...
+
+J-Link found 1 JTAG device, Total IRLen = 5
+JTAG ID: 0x00000001 (RISC-V)
+Halting core...
+RISC-V RV32 detected. Using RV32 register set for communication with GDB
+Core implements no FPU
+Initializing CPU registers...Connected to target
+Waiting for GDB connection...
+```
+
+NOTE `Listening on TCP/IP port 2331`, port 2331 will be used later.
+
+
+Open new terminal window and run:
+```
+riscv-none-elf-gdb build/csm32rv20.elf
+```
+
+After '(gdb)` prompt show:
+```
+(gdb) target remote :2331
+Remote debugging using :2331
+warning: Can not parse XML target description; XML support was disabled at compile time
+0x00000000 in ?? ()
+(gdb) load
+Loading section .init, size 0x126 lma 0x20000000
+Loading section .text, size 0x1a0c lma 0x20000140
+Loading section .rodata, size 0x138 lma 0x20001b4c
+Loading section .data, size 0x64 lma 0x20001c84
+Start address 0x20000000, load size 7374
+Transfer rate: 1800 KB/sec, 1843 bytes/write.
+(gdb) list main.c:50
+45          //GPIO_Write(GPIOA,PIN14,GPIO_RESET); //GPIO 输出
+46          //GPIO_Write(GPIOA,PIN15,GPIO_RESET); //GPIO 输出
+47
+48          //GPIO_Toggle(GPIOA,PIN15); //GPIO 翻转
+49          //GPIO_MODE_Init(GPIOA,PIN15,GPIO_MODE_INTPUT); //GPIO 模式
+50          for(uint8_t i=0;i<10;i++)
+51          {
+52              GPIO_Toggle(GPIOA,PIN8); //GPIO 翻转
+53              Delay32M_ms(100);
+54          }
+(gdb) b 53
+Breakpoint 1 at 0x2000016e: file src/main.c, line 53.
+(gdb) c
+Continuing.
+
+Breakpoint 1, main () at src/main.c:53
+53              Delay32M_ms(100);
+(gdb)
+```
+
+# Project tempate
+The firmware library is also project template.
+
+To build:
+```
+make
+```
+
+To program:
+```
+make flash
+```
+
+To debug:
+```
+make debug
+```
