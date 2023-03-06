@@ -112,7 +112,7 @@ cp Flashloader.elf $HOME/.config/SEGGER/JLinkDevices/CSM/csm32rv20
 
 If all good, the devices should able to be selected by vairous JLink utilities. I write a 'import-csm-jflash' script in firmware library repo to do this automatically.
 
-<img src="misc/selectdevice.png" />
+<img src="misc/selectdevice.png" width="60%" />
 
 ## Prepare csmflash.JLinkScript
 
@@ -161,7 +161,7 @@ Wire up JLink adapter and Official EVB cJTAG interface as:
 
 You can use JFlash (not JFlashLite) to program csm32rv20, choose the 'cJTAG' interface, set up the device and select 'csmflash.JLinkScript':
 
-<img src="misc/jflash.png" />
+<img src="misc/jflash.png" width="60%" />
 
 Here I use the command line:
 ```
