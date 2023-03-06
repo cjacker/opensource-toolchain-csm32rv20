@@ -34,6 +34,8 @@ It provide limited Linux support with CSMStudio linux version, but comparing wit
 - Official EVB
 - Any JLink adapter(above v10)
 
+<img src="misc/evb.png" />
+
 # Toolchain overview
 - Compiler : RISC-V GNU Toolchain
 - SDK : official firemware library
