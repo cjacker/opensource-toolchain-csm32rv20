@@ -30,6 +30,16 @@ It provide limited Linux support with CSMStudio linux version, but comparing wit
 
 **NOTE :** There is another firmware library provided in CSMStudio for 'Shanghai WestBerry WB32F030', after diff with CSM32RV20 firmware library v1.2.0, both are exactly identical, these two MCUs are same with different brand.
 
+# Table of contents
+- [Hardware prerequiest](https://github.com/cjacker/opensource-toolchain-csm32rv20/#hardware-prerequiest)
+- [Toolchain overview](https://github.com/cjacker/opensource-toolchain-csm32rv20/#toolchain-overview)
+- [Compiler](https://github.com/cjacker/opensource-toolchain-csm32rv20/#compiler)
+  + [XPack RISC-V Toolchain](https://github.com/cjacker/opensource-toolchain-csm32rv20/#xpack-risc-v-toolchain)
+- [SDK](https://github.com/cjacker/opensource-toolchain-csm32rv20/#sdk)
+- [Programming](https://github.com/cjacker/opensource-toolchain-csm32rv20/#programming)
+- [Debugging](https://github.com/cjacker/opensource-toolchain-csm32rv20/#debugging)
+- [Project template](https://github.com/cjacker/opensource-toolchain-csm32rv20/#project-template)
+
 # Hardware prerequiest
 - Official EVB
 - Any JLink adapter(above v10)
@@ -289,7 +299,7 @@ Breakpoint 1, main () at src/main.c:53
 (gdb)
 ```
 
-# Project tempate
+# Project template
 The firmware library is also project template.
 
 To build:
