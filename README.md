@@ -51,8 +51,8 @@ It provide limited Linux support with CSMStudio linux version, but comparing wit
 
 # Toolchain overview
 - Compiler : RISC-V GNU Toolchain
-- SDK : official firemware library
-- Programming : JLink by cJTAG interface
+- SDK : official firmware library
+- Programming : JLink with cJTAG interface
 - Debugging : JLink GDB Server / gdb
 
 # Compiler
@@ -93,11 +93,11 @@ Upstream support programming by ISP, JLink and CJLink.
 
 ISP programming depends on a close-source software written in dotNet, currently not work on Linux.
 
-CJLink support is by a privated forked OpenOCD with their own changes to add cjlink interface and csm flash driver, but not open source. it have only a windows binary released, also not work on Linux.
+CJLink support is by a privated forked OpenOCD with their own changes to add cjlink interface and csm flash driver, but not open source. it have only a windows binary released, also not work on Linux. **This violated GPL license that OpenOCD followed.**
 
-It's lucky that upstream also provide a JFlashloader, here I have to use **JLink with upstream JFlash support** although I don't like it.
+It's lucky that upstream also provide a JFlashloader, and I have to use **JLink with upstream JFlash support** although I don't like it.
 
-In [this seperate firmware library repo](https://github.com/cjacker/csm32rv20_firmware_library), I already integrated JLink programming support for it. before use JLink programming, you should have JLink utilities installed first, download it from SEGGER and install it.
+In [this seperate firmware library repo](https://github.com/cjacker/csm32rv20_firmware_library), I already integrated JLink programming support for it. before using JLink, you should have JLink utilities installed first, download it from SEGGER and install it.
 
 There are something need to explain:
 
@@ -136,9 +136,9 @@ After JFlash support added, you also have to perpare a JLink script `csmflash.JL
 > By default, J-Link will use the standard connect sequence. 
 > In order to make J-Link to use the short one instead, a command string needs to be executed before connecting to the device: "SetcJTAGInitMode = 1". 
 
-**It is important, otherwise JLink utilities will fail to connect CSM32RV20.**
+**It is important, otherwise JLink utilities will fail connect to CSM32RV20.**
 
-The script content as below:
+The script contents as below:
 
 ```
 int ConfigTargetSettings(void) {
@@ -303,6 +303,7 @@ Breakpoint 1, main () at src/main.c:53
 ```
 
 # Project template
+
 The firmware library is also project template.
 
 To build:
@@ -315,7 +316,7 @@ To program:
 make flash
 ```
 
-To debug:
+To launch jlinkgdbserver:
 ```
 make debug
 ```
